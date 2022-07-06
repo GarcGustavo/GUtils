@@ -1,0 +1,13 @@
+using UnityEngine;
+
+//<summary>
+// #SCRIPTNAME# full description
+//</summary>
+
+public class #SCRIPTNAME# : ScriptableObject
+{
+    public #SCRIPTNAME#()
+    {
+        // #SCRIPTNAME# constructor
+    }
+}

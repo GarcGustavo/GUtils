@@ -1,0 +1,23 @@
+using UnityEngine;
+
+//<summary>
+// #SCRIPTNAME# full description
+//</summary>
+
+public class #SCRIPTNAME# : MonoBehaviour
+{
+    private void Awake()
+    {
+        // #SCRIPTNAME# code to run on initialization
+    }
+    
+    private void Start()
+    {
+        // #SCRIPTNAME# code to run at start of scene
+    }
+    
+    private void Update()
+    {
+        // #SCRIPTNAME# code to run each frame
+    }
+}
