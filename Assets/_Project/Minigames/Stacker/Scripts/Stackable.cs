@@ -10,17 +10,19 @@ namespace _Project.Minigames.Stacker.Scripts
 	{
 		//private FrictionJoint2D _frictionJoint;
 		private Rigidbody _rigidbody;
-		private Plate _plate;
+		private Transform _plateParent;
+		private GameObject _stackableTypeData;
 
 		private void Awake()
 		{
 			//_frictionJoint = GetComponent<FrictionJoint2D>();
 			//_frictionJoint.enabled = false;
-			_rigidbody = GetComponent<Rigidbody>();
-			_plate = StackerManager.Instance.PlateObject;
+			_rigidbody = GetComponentInParent<Rigidbody>();
+			_rigidbody.velocity = Vector3.zero;
+			_plateParent = StackerManager.Instance.PlateParent;
 		}
 		
-		private void OnCollisionEnter(Collision other)
+		private void OnTriggerEnter(Collider other)
 		{
 			switch (other.gameObject.tag)
 			{
@@ -30,13 +32,17 @@ namespace _Project.Minigames.Stacker.Scripts
 					//_frictionJoint.enabled = true;
 					//_frictionJoint.connectedAnchor = other.contacts[0].point;
 					_rigidbody.velocity = Vector3.zero;
-					transform.SetParent(_plate.gameObject.transform);
+					//_rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+					//transform.parent.SetParent(_plate.gameObject.transform);
+					transform.parent.SetParent(_plateParent);
 					break;
 				case "Stackable":
 					//_frictionJoint.enabled = true;
 					//_frictionJoint.connectedAnchor = other.contacts[0].point;
 					_rigidbody.velocity = Vector3.zero;
-					transform.SetParent(_plate.gameObject.transform.parent);
+					//_rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+					//transform.parent.SetParent(_plate.gameObject.transform.parent);
+					transform.parent.SetParent(_plateParent);
 					break;
 				case "Floor":
 					StartCoroutine(DestroyBlock());
@@ -46,7 +52,7 @@ namespace _Project.Minigames.Stacker.Scripts
 			}
 		}
 
-		private void OnCollisionStay(Collision other)
+		private void OnTriggerStay(Collider other)
 		{
 			switch (other.gameObject.tag)
 			{
@@ -55,22 +61,27 @@ namespace _Project.Minigames.Stacker.Scripts
 				case "Platform":
 					//_frictionJoint.enabled = true;
 					//_frictionJoint.connectedAnchor = other.contacts[0].point;
-					transform.SetParent(_plate.gameObject.transform);
+					//transform.parent.SetParent(_plate.gameObject.transform);
+					//_rigidbody.velocity = Vector3.zero;
+					transform.parent.SetParent(_plateParent);
 					break;
 				case "Stackable":
 					//_frictionJoint.enabled = true;
 					//_frictionJoint.connectedAnchor = other.contacts[0].point;
-					transform.SetParent(_plate.gameObject.transform.parent);
+					//transform.parent.SetParent(_plate.gameObject.transform.parent);
+					//_rigidbody.velocity = Vector3.zero;
+					transform.parent.SetParent(_plateParent);
 					break;
 				case "Floor":
 					StartCoroutine(DestroyBlock());
 					break;
 				default:
+					//transform.parent.SetParent(StackerManager.Instance.transform);
 					break;
 			}
 		}
 
-		private void OnCollisionExit(Collision other)
+		private void OnTriggerExit(Collider other)
 		{
 			switch (other.gameObject.tag)
 			{
@@ -84,7 +95,7 @@ namespace _Project.Minigames.Stacker.Scripts
 				case "Stackable":
 					//_frictionJoint.enabled = true;
 					//_frictionJoint.connectedAnchor = other.contacts[0].point;
-					//transform.SetParent(null);
+					//transform.parent.SetParent(null);
 					break;
 				case "Floor":
 					//DestroyBlock();
@@ -93,14 +104,17 @@ namespace _Project.Minigames.Stacker.Scripts
 					break;
 			}
 		}
+		
+		
 
 		IEnumerator DestroyBlock()
 		{
 			//_frictionJoint.enabled = false;
+			transform.parent.SetParent(StackerManager.Instance.transform);
 			_rigidbody.velocity = Vector3.zero;
 			//transform.position = Vector3.zero;
 			yield return new WaitForFixedUpdate();
-			gameObject.SetActive(false);
+			transform.parent.gameObject.SetActive(false);
 		}
 	}
 }

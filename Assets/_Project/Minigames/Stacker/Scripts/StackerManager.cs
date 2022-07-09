@@ -16,6 +16,7 @@ namespace _Project.Minigames.Stacker.Scripts
         
         [SerializeField] private float _spawnCD = .5f;
         [SerializeField] private int _maxBlockCount = 10;
+        [SerializeField] private float _blockSpawnArea = 7f;
         [SerializeField] private Score _score;
         [SerializeField] private Transform _spawnPoint;
         [SerializeField] private List<GameObject> _blockPrefabs;
@@ -23,7 +24,9 @@ namespace _Project.Minigames.Stacker.Scripts
         private bool _roundActive;
         private Camera _camera;
         [SerializeField] private Plate _plate;
+        [SerializeField] private Transform _plateParent;
         public Plate PlateObject{ get{ return _plate; } }
+        public Transform PlateParent{ get{ return _plateParent; } }
 
         void Awake()
         {
@@ -81,9 +84,10 @@ namespace _Project.Minigames.Stacker.Scripts
         {
             var block = _blockPool.FirstOrDefault(x => !x.activeSelf);
             if (block == null) return;
-            var randomPosition = _camera.ViewportToWorldPoint(new Vector3(Random.value,1.5f));
+            var random_position = _spawnPoint.position.x + Random.Range(-_blockSpawnArea, _blockSpawnArea);
             block.SetActive(true);
-            block.transform.position = new Vector3(randomPosition.x, randomPosition.y, -1);
+            block.transform.position = new Vector3(random_position, _spawnPoint.position.y, -1);
+            block.transform.rotation = Quaternion.identity;
         }
     
         IEnumerator StartSpawner()
