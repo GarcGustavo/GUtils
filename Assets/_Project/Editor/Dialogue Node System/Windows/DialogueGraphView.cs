@@ -1,10 +1,12 @@
+using System;
+using _Project.DialogueSystem.Enumerations;
 using _Project.Editor.Dialogue_Node_System.Nodes;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace _Project.Editor.Dialogue_Node_System
+namespace _Project.Editor.Dialogue_Node_System.Windows
 {
 	public class DialogueGraphView : GraphView
 	{
@@ -17,9 +19,12 @@ namespace _Project.Editor.Dialogue_Node_System
 			AddStyles();
 		}
 
-		private DSNode CreateNode(Vector2 position)
+		private DSNode CreateNode(DSDialogueType new_node_type, Vector2 position)
 		{
 			DSNode node = new DSNode();
+			Type node_type = Type.GetType($"_Project.Editor.Dialogue_Node_System.Nodes.DS{new_node_type}Node");
+			node = (DSNode) Activator.CreateInstance(node_type);
+			
 			node.Initialize(position);
 			node.Draw();
 			return node;
@@ -31,18 +36,20 @@ namespace _Project.Editor.Dialogue_Node_System
 			this.AddManipulator(new ContentDragger());
 			this.AddManipulator(new SelectionDragger());
 			this.AddManipulator(new RectangleSelector());
-			this.AddManipulator(CreateNodeContextMenu());
+			this.AddManipulator(CreateNodeContextMenu("Add Node (Single Choice) ", DSDialogueType.Single));
+			this.AddManipulator(CreateNodeContextMenu("Add Node (Multiple Choice) ", DSDialogueType.Multiple));
+			this.AddManipulator(CreateNodeContextMenu("Add Node (Contextual) ", DSDialogueType.Contextual));
 			//this.AddManipulator(new EdgeManipulator());
 			//this.AddManipulator(new FreehandSelector());
 		}
 
-		private IManipulator CreateNodeContextMenu()
+		private IManipulator CreateNodeContextMenu(string node_text, DSDialogueType new_node_type)
 		{
 			// Adding actions to context menu w/ callbacks
 			ContextualMenuManipulator context_menu = new ContextualMenuManipulator(
 				menu_event => menu_event.menu
-					.AppendAction("Add Node", action_event => 
-						AddElement(CreateNode(action_event.eventInfo.localMousePosition)))
+					.AppendAction(node_text, action_event => 
+						AddElement(CreateNode(new_node_type, action_event.eventInfo.localMousePosition)))
 				);
 			
 			return context_menu;

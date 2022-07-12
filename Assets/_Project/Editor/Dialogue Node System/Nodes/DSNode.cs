@@ -13,7 +13,7 @@ namespace _Project.Editor.Dialogue_Node_System.Nodes
 		public string Text{ get; set; }
 		public DSDialogueType DialogueType { get; set; }
 		
-		public void	Initialize(Vector2 position)
+		public virtual void	Initialize(Vector2 position)
 		{
 			DialogueName = "Node name";
 			Text = "Dialogue text";
@@ -22,7 +22,7 @@ namespace _Project.Editor.Dialogue_Node_System.Nodes
 			SetPosition(new Rect(position, Vector2.zero));
 		}
 
-		public void Draw()
+		public virtual void Draw()
 		{
 			// Title
 			TextField dialogue_name_field = new TextField(){ value = DialogueName };
