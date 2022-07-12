@@ -48,7 +48,7 @@ namespace _Project.Common
 		}
 		
 		// Destroy all children of a transform
-		public static void DestroyChildren(Transform transform)
+		public static void DestroyChildren(this Transform transform)
 		{
 			foreach (Transform child in transform)
 				Object.Destroy(child.gameObject);
