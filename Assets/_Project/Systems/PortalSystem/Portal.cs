@@ -1,8 +1,7 @@
-using System;
 using _Project.Common;
 using UnityEngine;
 
-namespace _Project.PortalSystem
+namespace _Project.Systems.PortalSystem
 {
 	public class Portal : MonoBehaviour
 	{
@@ -10,7 +9,7 @@ namespace _Project.PortalSystem
 		public MeshRenderer screen;
 		private Camera playerCam;
 		private Camera portalCam;
-		RenderTexture portalTexture;
+		private RenderTexture portalTexture;
 
 		private void Awake()
 		{
@@ -21,7 +20,7 @@ namespace _Project.PortalSystem
 
 		private void CreateViewTexture()
 		{
-			if(portalTexture == null || portalTexture.width != Screen.width || portalTexture.height != Screen.height)
+			if (portalTexture == null || portalTexture.width != Screen.width || portalTexture.height != Screen.height)
 			{
 				if(portalTexture != null)
 				{

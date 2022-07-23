@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using FishNet;
-using FishNet.Connection;
 using FishNet.Object;
+using UnityEngine;
 
-namespace _Project.Minigames.Network
+namespace _Project.Network
 {
 	public class NetworkPlayerController : NetworkBehaviour
 	{

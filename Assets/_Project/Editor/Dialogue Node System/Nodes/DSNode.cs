@@ -16,7 +16,7 @@ namespace _Project.Editor.Dialogue_Node_System.Nodes
 		public virtual void	Initialize(Vector2 position)
 		{
 			DialogueName = "Node name";
-			Text = "Dialogue text";
+			//Text = "Dialogue text";
 			DialogueChoices = new List<string>();
 			//DialogueType = DSDialogueType.SingleChoice;
 			SetPosition(new Rect(position, Vector2.zero));
@@ -26,6 +26,9 @@ namespace _Project.Editor.Dialogue_Node_System.Nodes
 		{
 			// Title
 			TextField dialogue_name_field = new TextField(){ value = DialogueName };
+			dialogue_name_field.AddToClassList("ds-node__text-field");
+			dialogue_name_field.AddToClassList("ds-node__text-field__hidden");
+			dialogue_name_field.AddToClassList("ds-node__filename-text-field");
 			titleContainer.Insert(0, dialogue_name_field);
 			
 			// Input/Output Nodes
@@ -35,13 +38,16 @@ namespace _Project.Editor.Dialogue_Node_System.Nodes
 			//output_node.portName = "Output Node";
 			inputContainer.Add(input_port);
 			//inputContainer.Add(output_node);
-			
+
 			// Temp. container
 			VisualElement data_container = new VisualElement();
 			
 			// Input Field
 			Foldout text_foldout = new Foldout(){ text = "Text" };
 			TextField text_field = new TextField(Text){ value = Text };
+			
+			text_field.AddToClassList("ds-node__text-field");
+			text_field.AddToClassList("ds-node__quote-text-field");
 			
 			// Populating node fields
 			text_foldout.Add(text_field);

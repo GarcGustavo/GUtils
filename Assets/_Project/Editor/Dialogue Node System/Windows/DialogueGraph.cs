@@ -1,10 +1,8 @@
-using System;
-using _Project.Editor.Dialogue_Node_System.Windows;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace _Project.Editor.Dialogue_Node_System
+namespace _Project.Editor.Dialogue_Node_System.Windows
 {
 	public class DialogueGraph : EditorWindow
 	{

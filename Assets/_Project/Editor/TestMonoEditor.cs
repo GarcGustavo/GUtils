@@ -1,21 +1,24 @@
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 
 //<summary>
 // TestMonoEditor full description
 //</summary>
 
-[CustomEditor(typeof(TestMono))]
-public class TestMonoEditor : Editor
+namespace _Project.Editor
 {
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(TestMono))]
+    public class TestMonoEditor : UnityEditor.Editor
     {
-        base.OnInspectorGUI();
-        if(GUILayout.Button("Example Button"))
+        public override void OnInspectorGUI()
         {
-            Debug.Log("Test");
+            base.OnInspectorGUI();
+            if(GUILayout.Button("Example Button"))
+            {
+                Debug.Log("Test");
+            }
+            DrawDefaultInspector();
+            //script.#VARIABLE# = EditorGUILayout.IntField("#VARIABLE#", script.#VARIABLE#);
         }
-        DrawDefaultInspector();
-        //script.#VARIABLE# = EditorGUILayout.IntField("#VARIABLE#", script.#VARIABLE#);
     }
 }

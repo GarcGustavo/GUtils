@@ -70,8 +70,10 @@ namespace _Project.Editor.Dialogue_Node_System.Windows
 
 		private void AddStyles()
 		{
-			StyleSheet style_sheet = (StyleSheet) EditorGUIUtility.Load("DialogueSystem/GraphViewStyle.uss");
-			styleSheets.Add(style_sheet);
+			StyleSheet graph_style_sheet = (StyleSheet) EditorGUIUtility.Load("DialogueSystem/GraphViewStyles.uss");
+			StyleSheet node_style_sheet = (StyleSheet) EditorGUIUtility.Load("DialogueSystem/DSNodeStyles.uss");
+			styleSheets.Add(graph_style_sheet);
+			styleSheets.Add(node_style_sheet);
 		}
 		
 	}

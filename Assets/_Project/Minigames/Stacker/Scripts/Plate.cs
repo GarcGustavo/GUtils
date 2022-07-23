@@ -1,10 +1,11 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-public class Plate : MonoBehaviour
+
+namespace _Project.Minigames.Stacker.Scripts
 {
-	private void Awake()
+	public class Plate : MonoBehaviour
 	{
+		private void Awake()
+		{
+		}
 	}
 }
