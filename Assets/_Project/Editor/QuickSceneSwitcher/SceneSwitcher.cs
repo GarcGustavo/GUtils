@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
+using UnityEditor.Experimental.GraphView;
 using UnityEditor.Overlays;
 using UnityEditor.SceneManagement;
 using UnityEditor.Toolbars;
@@ -88,7 +89,7 @@ namespace _Project.Editor
 	}
 
 	[EditorToolbarElement(ID, typeof(SceneView))]
-	public class SceneDropdown : EditorToolbarDropdown
+	public class SceneDropdown : EditorToolbarDropdown, ISearchWindowProvider
 	{
 		public const string ID = SceneSwitcherToolbarOverlay.OverlayID + "/scene-dropdown";
 
@@ -182,6 +183,18 @@ namespace _Project.Editor
 		{
 			text = sceneName;
 			SceneSwitcher.SwitchScene(scenePath);
+		}
+
+		public List<SearchTreeEntry> CreateSearchTree(SearchWindowContext context)
+		{
+			List<SearchTreeEntry> search_list = new List<SearchTreeEntry>();
+			search_list.Add(new SearchTreeGroupEntry(new GUIContent("Scenes"), 0));
+			return search_list;
+		}
+
+		public bool OnSelectEntry(SearchTreeEntry SearchTreeEntry, SearchWindowContext context)
+		{
+			return true;
 		}
 	}
 }

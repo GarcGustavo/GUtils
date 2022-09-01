@@ -1,19 +1,14 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using _Project.Common;
+using _Project.Systems.UI;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using static _Project.Common.CommonUtils;
-using DG.Tweening;
-using DG.Tweening.Core.Easing;
 
-namespace _Project.Systems.UI
+namespace _Project.Common.UI
 {
 	public class ActionMenu : MonoBehaviour
 	{
-		private UIManager _uiManager;
+		private Systems.UI.UIManager _uiManager;
 		[SerializeField] private InputManager inputManager;
 		[SerializeField] private Transform textParent;
 		[SerializeField] private TMP_Text TmpPrefab;

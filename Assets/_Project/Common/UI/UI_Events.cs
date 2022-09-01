@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using static System.Action;
+using static _Project.Common.GEvents;
 
 namespace _Project.Systems.UI
 {
